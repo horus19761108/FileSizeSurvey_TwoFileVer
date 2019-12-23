@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>888,1590</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>888,1702</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>シーケンス_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -37,7 +37,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="19">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -57,9 +57,11 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="【説明】&#xD;&#xA;フォルダのフォルダサイズ(ディスク上のサイズ)を、エクスプローラのプロパティより抽出する。&#xD;&#xA;処理対象のフォルダが存在しない場合は、「指定されたフォルダは存在しません」というテキストを返す。&#xA;【入力引数】&#xA;in_FolderPath：処理対象フォルダのフルパス&#xA;【出力引数】&#xA;out_FolderSize：抽出したフォルダサイズ(ディスク上のサイズ)&#xA;【前提条件】&#xA;無し" DisplayName="Explorer_GetFolderSize_onDisk" sap:VirtualizedContainerService.HintSize="868,1642" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="【説明】&#xA;フォルダのフォルダサイズ(ディスク上のサイズ)を、エクスプローラのプロパティより抽出する。&#xA;処理対象のフォルダが存在しない場合は、「指定されたフォルダは存在しません」というテキストを返す。&#xA;【入力引数】&#xA;in_FolderPath：処理対象フォルダのフルパス&#xA;【出力引数】&#xA;out_FolderSize：抽出したフォルダサイズ(ディスク上のサイズ)&#xA;【前提条件】&#xA;無し" DisplayName="Explorer_GetFolderSize_onDisk" sap:VirtualizedContainerService.HintSize="868,1642" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="CheckResult" />
       <Variable x:TypeArguments="x:String" Name="SizeOnDisk" />
@@ -111,7 +113,7 @@
                       </ui:Target>
                     </ui:Click.Target>
                   </ui:Click>
-                  <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" sap2010:Annotation.AnnotationText="【説明】&#xD;&#xA;フォルダのプロパティの「サイズ」に1.5秒間更新が無ければ計算終了とみなし、その時点の「ディスク上のサイズ」を抽出する。" DisplayName="プロパティより「ディスク上のサイズ」を抽出" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="WindowScope_2" Selector="&lt;wnd app='explorer.exe' cls='#32770' /&gt;">
+                  <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" sap2010:Annotation.AnnotationText="【説明】&#xA;フォルダのプロパティの「サイズ」に1.5秒間更新が無ければ計算終了とみなし、その時点の「ディスク上のサイズ」を抽出する。" DisplayName="プロパティより「ディスク上のサイズ」を抽出" sap:VirtualizedContainerService.HintSize="560,1750" sap2010:WorkflowViewState.IdRef="WindowScope_2" Selector="&lt;wnd app='explorer.exe' cls='#32770' /&gt;">
                     <ui:WindowScope.Body>
                       <ActivityAction x:TypeArguments="x:Object">
                         <ActivityAction.Argument>
@@ -168,8 +170,8 @@
                                   <OutArgument x:TypeArguments="ui:GenericValue">[SizeText]</OutArgument>
                                 </ui:GetValue.Value>
                               </ui:GetValue>
-                              <ui:Matches BuilderPattern="\((.+)バイト\)" DisplayName="バイト表記の数値を抽出" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_2" Input="[SizeText]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;カスタム&quot;,&quot;OperationValue&quot;:&quot;\\((.+)バイト\\)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;指定回数&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="\((.+)バイト\)" RegexOption="IgnoreCase, Compiled" Result="[MatchResult]" />
-                              <Assign DisplayName="抽出したデータを確保" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_5">
+                              <ui:Matches BuilderPattern="\((.+)バイト\)" DisplayName="バイト表記の数値を抽出#1" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_2" Input="[SizeText]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;カスタム&quot;,&quot;OperationValue&quot;:&quot;\\((.+)バイト\\)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;指定回数&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="\((.+)バイト\)" RegexOption="IgnoreCase, Compiled" Result="[MatchResult]" />
+                              <Assign DisplayName="抽出したデータを確保#1" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_5">
                                 <Assign.To>
                                   <OutArgument x:TypeArguments="str:Match">[ResultRow]</OutArgument>
                                 </Assign.To>
@@ -177,7 +179,7 @@
                                   <InArgument x:TypeArguments="str:Match">[MatchResult(0)]</InArgument>
                                 </Assign.Value>
                               </Assign>
-                              <Assign DisplayName="数値のみを設定" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+                              <Assign DisplayName="数値のみを設定#1" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_6">
                                 <Assign.To>
                                   <OutArgument x:TypeArguments="x:String">[new_value]</OutArgument>
                                 </Assign.To>
@@ -187,7 +189,7 @@
                               </Assign>
                             </Sequence>
                           </DoWhile>
-                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="'サイズ'を抽出(String)" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="GetValue_3">
+                          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="'ディスク上のサイズ'を抽出(String)" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="GetValue_3">
                             <ui:GetValue.Target>
                               <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="c8fbb7f373f995768ce8d0ab355516c1" Selector="&lt;wnd ctrlid='13106' /&gt;" WaitForReady="INTERACTIVE">
                                 <ui:Target.TimeoutMS>
@@ -199,8 +201,8 @@
                               <OutArgument x:TypeArguments="ui:GenericValue">[SizeText]</OutArgument>
                             </ui:GetValue.Value>
                           </ui:GetValue>
-                          <ui:Matches BuilderPattern="\((.+)バイト\)" DisplayName="バイト表記の数値を抽出" sap:VirtualizedContainerService.HintSize="484,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_3" Input="[SizeOnDisk]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;カスタム&quot;,&quot;OperationValue&quot;:&quot;\\((.+)バイト\\)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;指定回数&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="\((.+)バイト\)" RegexOption="IgnoreCase, Compiled" Result="[MatchResult]" />
-                          <Assign DisplayName="抽出したデータを確保" sap:VirtualizedContainerService.HintSize="484,62" sap2010:WorkflowViewState.IdRef="Assign_8">
+                          <ui:Matches BuilderPattern="\((.+)バイト\)" DisplayName="バイト表記の数値を抽出#2" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_3" Input="[SizeText]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;カスタム&quot;,&quot;OperationValue&quot;:&quot;\\((.+)バイト\\)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;指定回数&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="\((.+)バイト\)" RegexOption="IgnoreCase, Compiled" Result="[MatchResult]" />
+                          <Assign DisplayName="抽出したデータを確保#2" sap:VirtualizedContainerService.HintSize="484,62" sap2010:WorkflowViewState.IdRef="Assign_8">
                             <Assign.To>
                               <OutArgument x:TypeArguments="str:Match">[ResultRow]</OutArgument>
                             </Assign.To>
@@ -208,7 +210,7 @@
                               <InArgument x:TypeArguments="str:Match">[MatchResult(0)]</InArgument>
                             </Assign.Value>
                           </Assign>
-                          <Assign DisplayName="数値のみを設定" sap:VirtualizedContainerService.HintSize="484,62" sap2010:WorkflowViewState.IdRef="Assign_9">
+                          <Assign DisplayName="数値のみを設定#2" sap:VirtualizedContainerService.HintSize="484,62" sap2010:WorkflowViewState.IdRef="Assign_9">
                             <Assign.To>
                               <OutArgument x:TypeArguments="x:String">[SizeOnDisk]</OutArgument>
                             </Assign.To>
